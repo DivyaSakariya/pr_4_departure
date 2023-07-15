@@ -67,6 +67,10 @@ making the app inclusive and accessible to a wider audience.
 
 
 
+https://github.com/DivyaSakariya/pr_4_departure/assets/113959976/31342252-679a-4fd6-bb1a-b6dce0591fd8
+
+
+
 ## ScreenShots
 
 <img src="https://github.com/DivyaSakariya/pr_4_departure/assets/113959976/2dc43108-be02-4353-aac9-6a299a0127d3"  width="250px"></img>

@@ -1,43 +1,43 @@
 class ChapterModel {
-  final int chNumber;
-  final String chSummary;
-  final String chSummaryHindi;
+  final int chapterNumber;
+  final String chapterSummary;
+  final String chapterSummaryHindi;
   final int id;
   final String img;
-  final String imgName;
+  final String imageName;
   final String name;
   final String nameMeaning;
   final String nameTranslation;
   final String nameTransliterated;
-  final int verseCount;
+  final int versesCount;
 
   ChapterModel({
-    required this.chNumber,
-    required this.chSummary,
-    required this.chSummaryHindi,
+    required this.chapterNumber,
+    required this.chapterSummary,
+    required this.chapterSummaryHindi,
     required this.id,
     required this.img,
-    required this.imgName,
+    required this.imageName,
     required this.name,
     required this.nameMeaning,
     required this.nameTranslation,
     required this.nameTransliterated,
-    required this.verseCount,
+    required this.versesCount,
   });
 
-  factory ChapterModel.fromMap({required Map data}) {
+  factory ChapterModel.fromMap({required Map<String, dynamic> data}) {
     return ChapterModel(
-      chNumber: data['chNumber'],
-      chSummary: data['chSummary'],
-      chSummaryHindi: data['chSummaryHindi'],
+      chapterNumber: data['chapter_number'],
+      chapterSummary: data['chapter_summary'],
+      chapterSummaryHindi: data['chapter_summary_hindi'],
       id: data['id'],
       img: data['img'],
-      imgName: data['imgName'],
+      imageName: data['image_name'],
       name: data['name'],
-      nameMeaning: data['nameMeaning'],
-      nameTranslation: data['nameTranslation'],
-      nameTransliterated: data['nameTransliterated'],
-      verseCount: data['verseCount'],
+      nameMeaning: data['name_meaning'],
+      nameTranslation: data['name_translation'],
+      nameTransliterated: data['name_transliterated'],
+      versesCount: data['verses_count'],
     );
   }
 }

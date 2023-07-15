@@ -3,31 +3,30 @@ import 'package:pr_4_departure/controller/bottomNavigationController.dart';
 import 'package:pr_4_departure/controller/theme_controller.dart';
 import 'package:provider/provider.dart';
 
+import '../../controller/language_controller.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    dynamic languageProvider = Provider.of<LanguageController>(context);
     return Consumer<BottomNavigationController>(
         builder: (context, provider, _) {
       return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
+              icon: const Icon(Icons.home),
+              label: languageProvider.isHindi ? "घर" : "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border_rounded),
-              label: "Favourite",
+              icon: const Icon(Icons.favorite_border_rounded),
+              label: languageProvider.isHindi ? "पसंदीदा" : "Favourite",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.format_quote_rounded),
-              label: 'Quotes',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.question_mark_outlined),
-              label: 'About',
+              icon: const Icon(Icons.format_quote_rounded),
+              label: languageProvider.isHindi ? "विचार" : "Quotes",
             ),
           ],
           currentIndex: provider.selectedIndex,

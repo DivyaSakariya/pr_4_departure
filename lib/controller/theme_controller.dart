@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:pr_4_departure/helper/theme_preference.dart';
 
 class ThemeController extends ChangeNotifier {
-
   late bool _isDark;
   late ThemePreference _prefs;
+
   bool get isDark => _isDark;
 
   ThemeController() {
@@ -14,7 +14,7 @@ class ThemeController extends ChangeNotifier {
   }
 
   set isDark(bool value) {
-    _isDark=value;
+    _isDark = value;
     _prefs.setTheme(value);
     notifyListeners();
   }
@@ -24,4 +24,8 @@ class ThemeController extends ChangeNotifier {
     notifyListeners();
   }
 
+  onTapped() {
+    isDark = !isDark;
+    notifyListeners();
+  }
 }

@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:pr_4_departure/controller/chapter_controller.dart';
 import 'package:pr_4_departure/controller/language_controller.dart';
+import 'package:pr_4_departure/helper/arguments.dart';
 import 'package:pr_4_departure/model/chapter_model.dart';
 import 'package:pr_4_departure/model/verses_model.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,8 @@ class ChDetailScreen extends StatelessWidget {
                                   ? SizedBox(
                                       height: (h * 0.09) *
                                           (chProvider.allChapter[cIndex]
-                                                  .versesCount +5),
+                                                  .versesCount +
+                                              5),
                                       child: ListView.builder(
                                         physics:
                                             const NeverScrollableScrollPhysics(),
@@ -125,8 +127,10 @@ class ChDetailScreen extends StatelessWidget {
                                             child: ListTile(
                                               onTap: () {
                                                 Navigator.of(context).pushNamed(
-                                                    'verse_detail_screen',
-                                                    arguments: index);
+                                                  'verse_detail_screen',
+                                                  arguments: ScreenArguments(
+                                                      cIndex, index),
+                                                );
                                               },
                                               leading: const Text("📑"),
                                               title: Text(languagePro

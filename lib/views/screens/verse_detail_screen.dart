@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:pr_4_departure/controller/chapter_controller.dart';
 import 'package:pr_4_departure/controller/favorite_controller.dart';
 import 'package:pr_4_departure/controller/verses_controller.dart';
-import 'package:pr_4_departure/model/chapter_model.dart';
 import 'package:pr_4_departure/model/verses_model.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../controller/language_controller.dart';
+import '../../helper/arguments.dart';
 
 class VerseDetailScreen extends StatelessWidget {
   const VerseDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    int cIndex = ModalRoute.of(context)!.settings.arguments as int;
+    // int cIndex = ModalRoute.of(context)!.settings.arguments as int;
+    final argument =
+        ModalRoute.of(context)!.settings.arguments as ScreenArguments;
 
     double h = MediaQuery.of(context).size.height;
 
@@ -27,9 +29,13 @@ class VerseDetailScreen extends StatelessWidget {
     );
     dynamic languageProvider = Provider.of<LanguageController>(context);
 
+    dynamic chProvider = Provider.of<ChapterController>(context)
+        .allChapter[argument.]
+        .chapterNumber;
+
     bool isFavorite = false;
     return Consumer<VersesController>(builder: (context, vProvider, child) {
-      VerseModel pro = vProvider.allVerse[cIndex];
+      VerseModel pro = vProvider.allVerse[argument.];
 
       return Scaffold(
         appBar: AppBar(
@@ -44,15 +50,15 @@ class VerseDetailScreen extends StatelessWidget {
                   isFavorite = !isFavorite;
                 },
                 icon: isFavorite
-                    ? const Icon(Icons.favorite_border_rounded)
-                    : const Icon(Icons.favorite),
+                    ? const Icon(Icons.favorite)
+                    : const Icon(Icons.favorite_border_outlined),
               );
             }),
             Consumer<ChapterController>(builder: (context, cPro, _) {
               return IconButton(
                 onPressed: () async {
                   await Share.share(
-                    "${cPro.allChapter[cIndex].name}\n${pro.title}\n${pro.text}",
+                    "${cPro.allChapter[argument.cIndex].name}\n${pro.title}\n${pro.text}",
                   );
                 },
                 icon: const Icon(Icons.share),
@@ -63,47 +69,52 @@ class VerseDetailScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(18),
           child: vProvider.allVerse.isNotEmpty
-              ? SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      languageProvider.isHindi
-                          ? Text(
-                              pro.text,
-                              style: largeTextStyle,
-                            )
-                          : Column(
-                              children: [
-                                Text(
+              ? (chProvider ==
+                      vProvider.allVerse[argument.vIndex].chapterNumber)
+                  ? SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          languageProvider.isHindi
+                              ? Text(
                                   pro.text,
                                   style: largeTextStyle,
+                                )
+                              : Column(
+                                  children: [
+                                    Text(
+                                      pro.text,
+                                      style: largeTextStyle,
+                                    ),
+                                    SizedBox(height: h * 0.01),
+                                    Text(
+                                      "Transliteration:-",
+                                      style: headingTextStyle,
+                                    ),
+                                    SizedBox(height: h * 0.01),
+                                    Text(
+                                      pro.transliteration,
+                                      style: largeTextStyle,
+                                    ),
+                                    SizedBox(height: h * 0.01),
+                                    Text(
+                                      "Word-Meaning:-",
+                                      style: headingTextStyle,
+                                    ),
+                                    SizedBox(height: h * 0.01),
+                                    Text(
+                                      pro.wordMeanings,
+                                      style: largeTextStyle,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(height: h * 0.01),
-                                Text(
-                                  "Transliteration:-",
-                                  style: headingTextStyle,
-                                ),
-                                SizedBox(height: h * 0.01),
-                                Text(
-                                  pro.transliteration,
-                                  style: largeTextStyle,
-                                ),
-                                SizedBox(height: h * 0.01),
-                                Text(
-                                  "Word-Meaning:-",
-                                  style: headingTextStyle,
-                                ),
-                                SizedBox(height: h * 0.01),
-                                Text(
-                                  pro.wordMeanings,
-                                  style: largeTextStyle,
-                                ),
-                              ],
-                            ),
-                    ],
-                  ),
-                )
+                        ],
+                      ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    )
               : const Center(
                   child: CircularProgressIndicator(),
                 ),

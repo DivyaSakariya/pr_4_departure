@@ -3,7 +3,7 @@ class ScreenArguments {
   final int verseIndex;
 
   ScreenArguments(
-    this.chIndex,
-    this.verseIndex,
-  );
+      this.chIndex,
+      this.verseIndex,
+      );
 }

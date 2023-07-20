@@ -14,7 +14,6 @@ class VerseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // int cIndex = ModalRoute.of(context)!.settings.arguments as int;
     final argument =
         ModalRoute.of(context)!.settings.arguments as ScreenArguments;
 
@@ -30,12 +29,12 @@ class VerseDetailScreen extends StatelessWidget {
     dynamic languageProvider = Provider.of<LanguageController>(context);
 
     dynamic chProvider = Provider.of<ChapterController>(context)
-        .allChapter[argument.]
+        .allChapter[argument.chIndex]
         .chapterNumber;
 
     bool isFavorite = false;
     return Consumer<VersesController>(builder: (context, vProvider, child) {
-      VerseModel pro = vProvider.allVerse[argument.];
+      VerseModel pro = vProvider.allVerse[argument.chIndex];
 
       return Scaffold(
         appBar: AppBar(
@@ -58,7 +57,7 @@ class VerseDetailScreen extends StatelessWidget {
               return IconButton(
                 onPressed: () async {
                   await Share.share(
-                    "${cPro.allChapter[argument.cIndex].name}\n${pro.title}\n${pro.text}",
+                    "${cPro.allChapter[argument.chIndex].name}\n${pro.title}\n${pro.text}",
                   );
                 },
                 icon: const Icon(Icons.share),
@@ -70,7 +69,7 @@ class VerseDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.all(18),
           child: vProvider.allVerse.isNotEmpty
               ? (chProvider ==
-                      vProvider.allVerse[argument.vIndex].chapterNumber)
+                      vProvider.allVerse[argument.verseIndex].chapterNumber)
                   ? SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(

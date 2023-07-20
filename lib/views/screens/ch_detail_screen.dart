@@ -40,127 +40,127 @@ class ChDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: chProvider.allChapter.isNotEmpty
               ? SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CarouselSlider(
-                            items: chProvider.images[cIndex]
-                                .map(
-                                  (e) => Container(
-                                    height: 250,
-                                    width: double.infinity,
-                                    margin: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(28),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          e,
-                                        ),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                            options: CarouselOptions(
-                              autoPlay: true,
-                              enlargeCenterPage: true,
-                              autoPlayCurve: Curves.easeOut,
-                              onPageChanged: (index, reason) {
-                                chProvider.changeCarouselIndex(index: index);
-                              },
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CarouselSlider(
+                      items: chProvider.images[cIndex]
+                          .map(
+                            (e) => Container(
+                          height: 250,
+                          width: double.infinity,
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                e,
+                              ),
+                              fit: BoxFit.fill,
                             ),
                           ),
-                          Center(
-                            child: DotsIndicator(
-                              dotsCount: chProvider.images[cIndex].length,
-                              position: chProvider.currentIndex,
-                              decorator: const DotsDecorator(
-                                  activeColor: Colors.deepOrangeAccent),
-                            ),
-                          ),
-                          SizedBox(height: h * 0.01),
-                          Center(
-                            child: Text(
-                              languagePro ? pro.name : pro.nameTranslation,
-                              style: largeTextStyle,
-                            ),
-                          ),
-                          SizedBox(height: h * 0.01),
-                          Text(
-                            languagePro ? "सारांश:-" : "Summary:- ",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          SizedBox(height: h * 0.01),
-                          Text(
-                            languagePro
-                                ? "                 ${pro.chapterSummaryHindi}"
-                                : "                 ${pro.chapterSummary}",
-                            style: summaryTextStyle,
-                          ),
-                          SizedBox(height: h * 0.01),
-                        ],
+                        ),
+                      )
+                          .toList(),
+                      options: CarouselOptions(
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        autoPlayCurve: Curves.easeOut,
+                        onPageChanged: (index, reason) {
+                          chProvider.changeCarouselIndex(index: index);
+                        },
                       ),
-                      Column(
-                        children: [
-                          Consumer<VersesController>(
-                            builder: (context, verseProvider, child) {
-                              return verseProvider.allVerse.isNotEmpty
-                                  ? SizedBox(
-                                      height: (h * 0.09) *
-                                          (chProvider.allChapter[cIndex]
-                                                  .versesCount +
-                                              5),
-                                      child: ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: chProvider
-                                            .allChapter[cIndex].versesCount,
-                                        itemBuilder: (context, index) {
-                                          VerseModel vData =
-                                              verseProvider.allVerse[index];
-                                          return Card(
-                                            child: ListTile(
-                                              onTap: () {
-                                                Navigator.of(context).pushNamed(
-                                                  'verse_detail_screen',
-                                                  arguments: ScreenArguments(
-                                                      cIndex, index),
-                                                );
-                                              },
-                                              leading: const Text("📑"),
-                                              title: Text(languagePro
-                                                  ? "श्लोक ${vData.verseNumber}"
-                                                  : vData.title),
-                                              subtitle: Text(languagePro
-                                                  ? "श्लोक पढ़ने के लिए क्लिक करें"
-                                                  : "Click To Read Verse"),
-                                              trailing: const Icon(
-                                                Icons.arrow_forward_ios,
-                                                size: 15,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    )
-                                  : const Center(
-                                      child: CircularProgressIndicator(),
+                    ),
+                    Center(
+                      child: DotsIndicator(
+                        dotsCount: chProvider.images[cIndex].length,
+                        position: chProvider.currentIndex,
+                        decorator: const DotsDecorator(
+                            activeColor: Colors.deepOrangeAccent),
+                      ),
+                    ),
+                    SizedBox(height: h * 0.01),
+                    Center(
+                      child: Text(
+                        languagePro ? pro.name : pro.nameTranslation,
+                        style: largeTextStyle,
+                      ),
+                    ),
+                    SizedBox(height: h * 0.01),
+                    Text(
+                      languagePro ? "सारांश:-" : "Summary:- ",
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(height: h * 0.01),
+                    Text(
+                      languagePro
+                          ? "                 ${pro.chapterSummaryHindi}"
+                          : "                 ${pro.chapterSummary}",
+                      style: summaryTextStyle,
+                    ),
+                    SizedBox(height: h * 0.01),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Consumer<VersesController>(
+                      builder: (context, verseProvider, child) {
+                        return verseProvider.allVerse.isNotEmpty
+                            ? SizedBox(
+                          height: (h * 0.09) *
+                              (chProvider.allChapter[cIndex]
+                                  .versesCount +
+                                  5),
+                          child: ListView.builder(
+                            physics:
+                            const NeverScrollableScrollPhysics(),
+                            itemCount: chProvider
+                                .allChapter[cIndex].versesCount,
+                            itemBuilder: (context, index) {
+                              VerseModel vData =
+                              verseProvider.allVerse[index];
+                              return Card(
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                      'verse_detail_screen',
+                                      arguments: ScreenArguments(
+                                          cIndex, index),
                                     );
+                                  },
+                                  leading: const Text("📑"),
+                                  title: Text(languagePro
+                                      ? "श्लोक ${vData.verseNumber}"
+                                      : vData.title),
+                                  subtitle: Text(languagePro
+                                      ? "श्लोक पढ़ने के लिए क्लिक करें"
+                                      : "Click To Read Verse"),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 15,
+                                  ),
+                                ),
+                              );
                             },
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
+                        )
+                            : const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ],
                 ),
+              ],
+            ),
+          )
+              : const Center(
+            child: CircularProgressIndicator(),
+          ),
         ),
       );
     });
